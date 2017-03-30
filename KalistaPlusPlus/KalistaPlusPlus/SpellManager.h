@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _INCL_GUARD_SPELLMANAGER_H
+#define _INCL_GUARD_SPELLMANAGER_H
+
 #include <PluginSDK.h>
 
 static class SpellManager
@@ -11,3 +14,5 @@ public:
 	static ISpell2* R;
 	static void Initialize();
 };
+
+#endif

@@ -1,5 +1,8 @@
 #pragma once
 
+#ifndef _INCL_GUARD_CONFIG_H
+#define _INCL_GUARD_CONFIG_H
+
 #include <PluginSDK.h>
 
 static class Config
@@ -76,3 +79,5 @@ public:
 		static bool Sentinel();
 	};
 };
+
+#endif
