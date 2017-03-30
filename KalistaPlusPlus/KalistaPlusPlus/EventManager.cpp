@@ -89,6 +89,11 @@ PLUGIN_EVENT(void) OnBuffAdd(IUnit* unit, void* BuffData)
 	}
 }
 
+PLUGIN_EVENT(bool) OnPreCast(eSpellSlot slot, IUnit* target, Vec3* startPosition, Vec3* endPosition)
+{
+	return slot != eSpellSlot::kSlotQ || !Player->IsDashing();
+}
+
 PLUGIN_EVENT(void) OnGameUpdate()
 {
 	switch (GOrbwalking->GetOrbwalkingMode()) 
@@ -241,30 +246,16 @@ void EventManager::Clear()
 				switch (Config::JungleClear::ExecuteType())
 				{
 					case 1:
-						for (const char* Epic : Epics)
-						{
-							if (strcmp(Epic, mob->GetBaseSkinName()) == 0)
-							{
-								SpellManager::E->CastOnPlayer();
-								break;
-							}
-						}
+						if (std::find(Epics.begin(), Epics.end(), mob->GetBaseSkinName()) != Epics.end())
+							SpellManager::E->CastOnPlayer();
 						break;
 					case 2:
-						for (const char* Mob : Mobs)
-						{
-							if (strcmp(Mob, mob->GetBaseSkinName()) == 0)
-							{
-								SpellManager::E->CastOnPlayer();
-								break;
-							}
-						}
+						if (std::find(Mobs.begin(), Mobs.end(), mob->GetBaseSkinName()) != Mobs.end())
+							SpellManager::E->CastOnPlayer();
 						break;
 					case 3:
-						{
-							SpellManager::E->CastOnPlayer();
-							break;
-						}
+						SpellManager::E->CastOnPlayer();
+						break;
 				}
 			}
 		}
@@ -277,6 +268,7 @@ void EventManager::Initialize()
 	GEventManager->AddEventHandler(eLeagueEvents::kEventOnRenderBehindHud, OnRender);
 	GEventManager->AddEventHandler(eLeagueEvents::kEventOnGameUpdate, OnGameUpdate);
 	GEventManager->AddEventHandler(eLeagueEvents::kEventOnBuffAdd, OnBuffAdd);
+	GEventManager->AddEventHandler(eLeagueEvents::kEventOnPreCast, OnPreCast);
 }
 
 void EventManager::Unload()
@@ -284,4 +276,5 @@ void EventManager::Unload()
 	GEventManager->RemoveEventHandler(eLeagueEvents::kEventOnRenderBehindHud, OnRender);
 	GEventManager->RemoveEventHandler(eLeagueEvents::kEventOnGameUpdate, OnGameUpdate);
 	GEventManager->RemoveEventHandler(eLeagueEvents::kEventOnBuffAdd, OnBuffAdd);
+	GEventManager->RemoveEventHandler(eLeagueEvents::kEventOnPreCast, OnPreCast);
 }
