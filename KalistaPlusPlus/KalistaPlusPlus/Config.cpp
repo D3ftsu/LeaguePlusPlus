@@ -32,8 +32,6 @@ void Config::Initialize()
 	MiscMenu = MainMenu->AddMenu("Miscellaneous");
 	MiscMenu->CheckBox("Cast E for cannons LastHit", true);
 	MiscMenu->CheckBox("Cast E before death", true);
-	MiscMenu->CheckBox("Cast E if enemy is leaving range", true);
-	MiscMenu->AddInteger("Min. E Stacks", 1, 20, 7);
 	MiscMenu->CheckBox("Use R to save your Soulbound", true);
 	for (IUnit* ally : GEntityList->GetAllHeros(true, false))
 	{
@@ -50,7 +48,7 @@ void Config::Initialize()
 	LaneClearMenu->AddFloat("LaneClear Min. Mana %", 0.f, 80.f, 30.f);
 
 	JungleClearMenu = MainMenu->AddMenu("JungleClear");
-	JungleClearMenu->CheckBox("Don't cast E in jungle for first 2 mins", true);
+	JungleClearMenu->CheckBox("Dont cast E in jungle for first 2 mins", true);
 	JungleClearMenu->AddSelection("Jungle Execute:", 2, std::vector<std::string>{"OFF", "Epic Only", "Large & Epic Only", "Everything"});
 	JungleClearMenu->CheckBox("Use E", true);
 
@@ -65,7 +63,7 @@ void Config::Initialize()
 	KeysMenu->AddKey("Cast sentinel bug", 84); // T
 
 	SkinsMenu = MainMenu->AddMenu("Skin Manager");
-	SkinsMenu->AddSelection("Select A Skin:", 0, std::vector<std::string>{"Classic", "Blood Moon", "Championship"}); // TODO waiting for callback option
+	SkinsMenu->AddSelection("Select A Skin: (DISABLED CURRENTLY)", 0, std::vector<std::string>{"Classic", "Blood Moon", "Championship"}); // TODO waiting for callback option
 }
 
 void Config::Unload()
