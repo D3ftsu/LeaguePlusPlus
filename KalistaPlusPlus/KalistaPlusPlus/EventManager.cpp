@@ -19,7 +19,7 @@ float GetDistance(IUnit* v1, IUnit* v2)
 float GetDistance(Vec3 v1)
 {
 	Vec3 v2(Player->GetPosition());
-	return sqrt(pow(v1.x - v2.x, 2.f) + pow(v1.z - v2.z, 2.f));
+	return GetDistance(v1, v2);
 }
 
 float GetDistance(IUnit* v1)
@@ -223,8 +223,8 @@ void EventManager::Clear()
 {
 	if (!SpellManager::E->IsReady())
 		return;
-	int KillableMinions;
-	if (Player->ManaPercent() < Config::LaneClear::Mana() && Config::LaneClear::E())
+	int KillableMinions = 0;
+	if (Player->ManaPercent() > Config::LaneClear::Mana() && Config::LaneClear::E())
 	{
 		for (IUnit* minion : GEntityList->GetAllMinions(false, true, false))
 		{
@@ -246,12 +246,24 @@ void EventManager::Clear()
 				switch (Config::JungleClear::ExecuteType())
 				{
 					case 1:
-						if (std::find(Epics.begin(), Epics.end(), mob->GetBaseSkinName()) != Epics.end())
-							SpellManager::E->CastOnPlayer();
+						for (const char* Epic : Epics)
+						{
+							if (strcmp(Epic, mob->GetBaseSkinName()) == 0)
+							{
+								SpellManager::E->CastOnPlayer();
+								break;
+							}
+						}
 						break;
 					case 2:
-						if (std::find(Mobs.begin(), Mobs.end(), mob->GetBaseSkinName()) != Mobs.end())
-							SpellManager::E->CastOnPlayer();
+						for (const char* Mob : Mobs)
+						{
+							if (strcmp(Mob, mob->GetBaseSkinName()) == 0)
+							{
+								SpellManager::E->CastOnPlayer();
+								break;
+							}
+						}
 						break;
 					case 3:
 						SpellManager::E->CastOnPlayer();
