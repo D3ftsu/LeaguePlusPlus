@@ -22,7 +22,6 @@ void Config::Initialize()
 
 	HarassMenu = MainMenu->AddMenu("Harass");
 	HarassMenu->CheckBox("Use Q", true);
-	HarassMenu->CheckBox("Kill minions with E to slow enemy", true);
 	HarassMenu->AddFloat("Harass Min. Mana %", 0.0f, 80.0f, 30.0f);
 
 	KillstealMenu = MainMenu->AddMenu("Killsteal");
@@ -151,7 +150,7 @@ bool Config::JungleClear::E()
 
 bool Config::JungleClear::NoE()
 {
-	return JungleClearMenu->GetOption("Don't cast E in jungle for first 2 mins")->Enabled();
+	return JungleClearMenu->GetOption("Dont cast E in jungle for first 2 mins")->Enabled();
 }
 
 int Config::JungleClear::ExecuteType()

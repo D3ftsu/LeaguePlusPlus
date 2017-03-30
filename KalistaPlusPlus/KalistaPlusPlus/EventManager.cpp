@@ -180,7 +180,7 @@ void EventManager::Combo()
 	IUnit* Target = GTargetSelector->FindTarget(eTargetPriority::QuickestKill, eDamageType::PhysicalDamage, SpellManager::Q->Range());
 	if (Target != nullptr)
 	{
-		if (SpellManager::Q->IsReady() && Config::Combo::Q() && GetDistance(Target) > Player->GetRealAutoAttackRange(Target) && Player->GetMana() > Player->GetSpellBook()->GetManaCost(eSpellSlot::kSlotQ)+Player->GetSpellBook()->GetManaCost(eSpellSlot::kSlotE))
+		if (SpellManager::Q->IsReady() && Config::Combo::Q() && GetDistance(Target) > Player->GetRealAutoAttackRange(Target))
 		{
 			SpellManager::Q->CastOnTarget(Target, ePredictionChance::kHitChanceHigh);
 			return;
@@ -231,7 +231,7 @@ void EventManager::Clear()
 			if (!minion->IsDead() && GetEDmg(minion) > minion->GetHealth() && GetDistance(minion) < SpellManager::E->Range() + minion->BoundingRadius())
 				KillableMinions++;
 		}
-		if (KillableMinions > Config::LaneClear::MinKillableE())
+		if (KillableMinions >= Config::LaneClear::MinKillableE())
 		{
 			SpellManager::E->CastOnPlayer();
 			return;
