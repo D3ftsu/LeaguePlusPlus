@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef _INCL_GUARD_EVENTMANAGER_H
-#define _INCL_GUARD_EVENTMANAGER_H
-
 #include "Config.h"
 
 static class EventManager
@@ -15,5 +12,3 @@ public:
 	static void Clear();
 	static void PermaActive();
 };
-
-#endif
