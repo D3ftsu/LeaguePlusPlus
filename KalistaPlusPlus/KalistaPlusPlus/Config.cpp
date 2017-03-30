@@ -73,7 +73,7 @@ void Config::Unload()
 
 bool Config::Combo::Q()
 {
-	return ComboMenu->GetOption(" Q")->Enabled();
+	return ComboMenu->GetOption("Use Q")->Enabled();
 }
 
 bool Config::Combo::E()
