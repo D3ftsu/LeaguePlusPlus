@@ -6,8 +6,8 @@
 4. Profit?
 
 # **HotKeys**
-F5 = Load
-F6 = Unload
+1. F5 = Load
+2. F6 = Unload
 
 # **TODO**
 1. API (obviously..)
