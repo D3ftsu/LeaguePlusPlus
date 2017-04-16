@@ -10,5 +10,5 @@
 2. F6 = Unload
 
 # **TODO**
-1. API (obviously..)
+1. API documentation (obviously..)
 2. Add Constants (Buff Type, TS Type, CollisionType, etc..)
